@@ -1,0 +1,42 @@
+syntax = "proto3";
+package cosmosregistry.example.v1;
+
+option go_package = "github.com/cosmosregistry/example";
+
+import "cosmosregistry/example/v1/example.proto";
+import "google/api/annotations.proto";
+import "cosmos/query/v1/query.proto";
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+// Msg defines the module Msg service.
+service Query {
+  // ListExample returns a list of all sent examples messages.
+  rpc ListExample(QueryListExampleRequest) returns (ListExampleResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/cosmosregistry/example/v1/list";
+  }
+
+  // Params returns the module parameters.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/cosmosregistry/example/v1/params";
+  }
+}
+
+// QueryListExampleRequest is the request type for the Query/ListExample RPC
+// method.
+message QueryListExampleRequest {}
+
+// ListExampleResponse is the response type for the Query/ListExample RPC
+// method.
+message ListExampleResponse {}
+
+// QueryParamsRequest is the request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is the response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params defines the parameters of the module.
+  Params params = 1
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+}

@@ -1,0 +1,11 @@
+version: v1
+plugins:
+  - name: go-pulsar
+    out: ..
+    opt: paths=source_relative,Mcosmos/app/v1alpha1/module.proto=cosmossdk.io/api/cosmos/app/v1alpha1
+  - name: go-grpc
+    out: ..
+    opt: paths=source_relative,Mcosmos/app/v1alpha1/module.proto=cosmossdk.io/api/cosmos/app/v1alpha1
+  - name: go-cosmos-orm
+    out: ..
+    opt: paths=source_relative,Mcosmos/app/v1alpha1/module.proto=cosmossdk.io/api/cosmos/app/v1alpha1
