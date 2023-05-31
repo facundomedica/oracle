@@ -32,19 +32,22 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 	}
 
 	sb := collections.NewSchemaBuilder(storeService)
+	k := Keeper{
+		cdc:          cdc,
+		addressCodec: addressCodec,
+		authority:    authority,
+		Params:       collections.NewItem(sb, example.ParamsKey, "params", codec.CollValue[example.Params](cdc)),
+		Counter:      collections.NewMap(sb, example.CounterKey, "counter", collections.StringKey, collections.Uint64Value),
+	}
+
 	schema, err := sb.Build()
 	if err != nil {
 		panic(err)
 	}
 
-	return Keeper{
-		cdc:          cdc,
-		addressCodec: addressCodec,
-		authority:    authority,
-		Schema:       schema,
-		Params:       collections.NewItem(sb, example.ParamsKey, "params", codec.CollValue[example.Params](cdc)),
-		Counter:      collections.NewMap(sb, example.CounterKey, "counter", collections.StringKey, collections.Uint64Value),
-	}
+	k.Schema = schema
+
+	return k
 }
 
 // GetAuthority returns the module's authority.

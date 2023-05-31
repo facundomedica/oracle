@@ -1,4 +1,4 @@
-name: Build and Test Cosmod
+name: Build and Test Module
 on:
   push:
     branches:

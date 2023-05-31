@@ -22,12 +22,12 @@ func TestQueryCounter(t *testing.T) {
 
 	resp, err := f.queryServer.Counter(f.ctx, &example.QueryCounterRequest{Address: f.addrs[0].String()})
 	require.NoError(err)
-	require.Equal(int64(0), resp.Counter)
+	require.Equal(uint64(0), resp.Counter)
 
 	_, err = f.msgServer.IncrementCounter(f.ctx, &example.MsgIncrementCounter{Sender: f.addrs[0].String()})
 	require.NoError(err)
 
 	resp, err = f.queryServer.Counter(f.ctx, &example.QueryCounterRequest{Address: f.addrs[0].String()})
 	require.NoError(err)
-	require.Equal(int64(1), resp.Counter)
+	require.Equal(uint64(1), resp.Counter)
 }

@@ -2,7 +2,12 @@ package keeper
 
 import (
 	"context"
+	"errors"
 	"fmt"
+
+	"cosmossdk.io/collections"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	"github.com/cosmosregistry/example"
 )
@@ -26,7 +31,11 @@ func (qs queryServer) Counter(ctx context.Context, req *example.QueryCounterRequ
 
 	counter, err := qs.k.Counter.Get(ctx, req.Address)
 	if err != nil {
-		return nil, err
+		if errors.Is(err, collections.ErrNotFound) {
+			return &example.QueryCounterResponse{Counter: 0}, nil
+		}
+
+		return nil, status.Error(codes.Internal, err.Error())
 	}
 
 	return &example.QueryCounterResponse{Counter: counter}, nil
@@ -36,7 +45,7 @@ func (qs queryServer) Counter(ctx context.Context, req *example.QueryCounterRequ
 func (qs queryServer) Params(ctx context.Context, req *example.QueryParamsRequest) (*example.QueryParamsResponse, error) {
 	params, err := qs.k.Params.Get(ctx)
 	if err != nil {
-		return nil, err
+		return nil, status.Error(codes.Internal, err.Error())
 	}
 
 	return &example.QueryParamsResponse{Params: params}, nil

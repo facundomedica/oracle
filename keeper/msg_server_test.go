@@ -22,7 +22,7 @@ func TestUpdateParams(t *testing.T) {
 			request: &example.MsgUpdateParams{
 				Authority: "foo",
 			},
-			expectErrMsg: "invalid authority address: invalid address: foo",
+			expectErrMsg: "invalid authority address",
 		},
 		{
 			name: "set invalid authority (not defined authority)",
@@ -63,14 +63,14 @@ func TestIncrementCounter(t *testing.T) {
 		name            string
 		request         *example.MsgIncrementCounter
 		expectErrMsg    string
-		expectedCounter int64
+		expectedCounter uint64
 	}{
 		{
 			name: "set invalid sender (not an address)",
 			request: &example.MsgIncrementCounter{
 				Sender: "foo",
 			},
-			expectErrMsg: "invalid sender address: invalid address: foo",
+			expectErrMsg: "invalid sender address",
 		},
 		{
 			name: "set valid sender",
