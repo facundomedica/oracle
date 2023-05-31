@@ -5,48 +5,53 @@ import (
 	"fmt"
 	"strings"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"github.com/cosmosregistry/example"
 )
 
 type msgServer struct {
-	Keeper
+	k Keeper
 }
 
 var _ example.MsgServer = msgServer{}
 
-// NewMsgServerImpl returns an implementation of the module MsgServer interface for the provided Keeper.
+// NewMsgServerImpl returns an implementation of the module MsgServer interface.
 func NewMsgServerImpl(keeper Keeper) example.MsgServer {
-	return &msgServer{Keeper: keeper}
+	return &msgServer{k: keeper}
 }
 
-// CreateExample defines the handler for the MsgCreateExample message.
-func (srv msgServer) CreateExample(ctx context.Context, msg *example.MsgExample) (*example.MsgExampleResponse, error) {
-	if _, err := sdk.AccAddressFromBech32(msg.Sender); err != nil {
+// IncrementCounter defines the handler for the MsgIncrementCounter message.
+func (ms msgServer) IncrementCounter(ctx context.Context, msg *example.MsgIncrementCounter) (*example.MsgIncrementCounterResponse, error) {
+	if _, err := ms.k.addressCodec.StringToBytes(msg.Sender); err != nil {
+		return nil, fmt.Errorf("invalid sender address: %w", err)
+	}
+
+	counter, err := ms.k.Counter.Get(ctx, msg.Sender)
+	if err != nil {
 		return nil, err
 	}
 
-	if msg.Data == "" {
-		return nil, fmt.Errorf("data cannot be empty")
+	counter++
+
+	if err := ms.k.Counter.Set(ctx, msg.Sender, counter); err != nil {
+		return nil, err
 	}
 
-	// TODO: implement the module's logic here
-
-	return &example.MsgExampleResponse{}, nil
+	return &example.MsgIncrementCounterResponse{}, nil
 }
 
 // UpdateParams params is defining the handler for the MsgUpdateParams message.
-func (srv msgServer) UpdateParams(ctx context.Context, msg *example.MsgUpdateParams) (*example.MsgUpdateParamsResponse, error) {
-	if _, err := sdk.AccAddressFromBech32(msg.Authority); err != nil {
+func (ms msgServer) UpdateParams(ctx context.Context, msg *example.MsgUpdateParams) (*example.MsgUpdateParamsResponse, error) {
+	if authority := ms.k.GetAuthority(); !strings.EqualFold(msg.Authority, authority) {
+		return nil, fmt.Errorf("unauthorized, authority does not match the module's authority: got %s, want %s", msg.Authority, authority)
+	}
+
+	if err := msg.Params.Validate(); err != nil {
 		return nil, err
 	}
 
-	if strings.EqualFold(msg.Authority, srv.Keeper.authority) {
-		return nil, fmt.Errorf("unauthorized, authority does not match the module's authority")
+	if err := ms.k.Params.Set(ctx, msg.Params); err != nil {
+		return nil, err
 	}
-
-	// TODO: implement the module's logic here
 
 	return &example.MsgUpdateParamsResponse{}, nil
 }

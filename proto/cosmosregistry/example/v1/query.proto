@@ -11,10 +11,11 @@ import "gogoproto/gogo.proto";
 
 // Msg defines the module Msg service.
 service Query {
-  // ListExample returns a list of all sent examples messages.
-  rpc ListExample(QueryListExampleRequest) returns (ListExampleResponse) {
+  // Counter returns the current counter value.
+  rpc Counter(QueryCounterRequest) returns (QueryCounterResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
-    option (google.api.http).get = "/cosmosregistry/example/v1/list";
+    option (google.api.http).get =
+        "/cosmosregistry/example/v1/counter/{address}";
   }
 
   // Params returns the module parameters.
@@ -23,13 +24,19 @@ service Query {
   }
 }
 
-// QueryListExampleRequest is the request type for the Query/ListExample RPC
+// QueryCounterRequest is the request type for the Query/Counter RPC
 // method.
-message QueryListExampleRequest {}
+message QueryCounterRequest {
+  // address defines the address to query for the counter.
+  string address = 1;
+}
 
-// ListExampleResponse is the response type for the Query/ListExample RPC
+// QueryCounterResponse is the response type for the Query/Counter RPC
 // method.
-message ListExampleResponse {}
+message QueryCounterResponse {
+  // counter defines the current counter for the sender.
+  uint64 counter = 1;
+}
 
 // QueryParamsRequest is the request type for the Query/Params RPC method.
 message QueryParamsRequest {}

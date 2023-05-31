@@ -17,8 +17,6 @@ for dir in $proto_dirs; do
 done
 
 echo "Generating pulsar proto code"
-go install github.com/cosmos/cosmos-proto/cmd/protoc-gen-go-pulsar@latest
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 buf generate --template buf.gen.pulsar.yaml
 
 cd ..
@@ -27,5 +25,3 @@ cp -r github.com/cosmosregistry/example/* ./
 rm -rf api && mkdir api
 mv cosmosregistry/example/* ./api
 rm -rf github.com cosmosregistry
-
-go mod tidy

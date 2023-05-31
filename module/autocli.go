@@ -12,9 +12,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			Service: examplev1.Query_ServiceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
-					RpcMethod: "ListExample",
-					Use:       "list",
-					Short:     "List all sent example messages",
+					RpcMethod: "Counter",
+					Use:       "counter [address]",
+					Short:     "Get the current value of the counter for an address",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "address"},
+					},
 				},
 				{
 					RpcMethod: "Params",
@@ -27,12 +30,14 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			Service: examplev1.Msg_ServiceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
-					RpcMethod:      "CreateExample",
-					Use:            "create [data]",
-					Short:          "Create a new example message",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "data"}},
+					RpcMethod: "IncrementCounter",
+					Use:       "counter [sender]",
+					Short:     "Increments the counter by 1 for the sender",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{
+						{ProtoField: "sender"},
+					},
 				},
-				// The params tx is purposely left empty, as the only tx is MsgUpdateParams which is gov gated.
+				// The UpdateParams tx is purposely left empty, the MsgUpdateParams is gov gated.
 			},
 		},
 	}

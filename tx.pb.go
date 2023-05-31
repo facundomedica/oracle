@@ -31,26 +31,24 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// MsgExample defines the Msg/Example request type.
-type MsgExample struct {
+// MsgIncrementCounter defines the Msg/IncrementCounter request type.
+type MsgIncrementCounter struct {
 	// sender is the message sender.
 	Sender string `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
-	// data is the content of the message.
-	Data string `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 }
 
-func (m *MsgExample) Reset()         { *m = MsgExample{} }
-func (m *MsgExample) String() string { return proto.CompactTextString(m) }
-func (*MsgExample) ProtoMessage()    {}
-func (*MsgExample) Descriptor() ([]byte, []int) {
+func (m *MsgIncrementCounter) Reset()         { *m = MsgIncrementCounter{} }
+func (m *MsgIncrementCounter) String() string { return proto.CompactTextString(m) }
+func (*MsgIncrementCounter) ProtoMessage()    {}
+func (*MsgIncrementCounter) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e12a2f8fd7fd29c8, []int{0}
 }
-func (m *MsgExample) XXX_Unmarshal(b []byte) error {
+func (m *MsgIncrementCounter) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgExample) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgIncrementCounter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgExample.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgIncrementCounter.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -60,48 +58,41 @@ func (m *MsgExample) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *MsgExample) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgExample.Merge(m, src)
+func (m *MsgIncrementCounter) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgIncrementCounter.Merge(m, src)
 }
-func (m *MsgExample) XXX_Size() int {
+func (m *MsgIncrementCounter) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgExample) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgExample.DiscardUnknown(m)
+func (m *MsgIncrementCounter) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgIncrementCounter.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgExample proto.InternalMessageInfo
+var xxx_messageInfo_MsgIncrementCounter proto.InternalMessageInfo
 
-func (m *MsgExample) GetSender() string {
+func (m *MsgIncrementCounter) GetSender() string {
 	if m != nil {
 		return m.Sender
 	}
 	return ""
 }
 
-func (m *MsgExample) GetData() string {
-	if m != nil {
-		return m.Data
-	}
-	return ""
+// MsgIncrementCounterResponse defines the Msg/IncrementCounter response type.
+type MsgIncrementCounterResponse struct {
 }
 
-// MsgExampleResponse defines the Msg/Example response type.
-type MsgExampleResponse struct {
-}
-
-func (m *MsgExampleResponse) Reset()         { *m = MsgExampleResponse{} }
-func (m *MsgExampleResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgExampleResponse) ProtoMessage()    {}
-func (*MsgExampleResponse) Descriptor() ([]byte, []int) {
+func (m *MsgIncrementCounterResponse) Reset()         { *m = MsgIncrementCounterResponse{} }
+func (m *MsgIncrementCounterResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgIncrementCounterResponse) ProtoMessage()    {}
+func (*MsgIncrementCounterResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e12a2f8fd7fd29c8, []int{1}
 }
-func (m *MsgExampleResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgIncrementCounterResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgExampleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgIncrementCounterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgExampleResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgIncrementCounterResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -111,17 +102,17 @@ func (m *MsgExampleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *MsgExampleResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgExampleResponse.Merge(m, src)
+func (m *MsgIncrementCounterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgIncrementCounterResponse.Merge(m, src)
 }
-func (m *MsgExampleResponse) XXX_Size() int {
+func (m *MsgIncrementCounterResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgExampleResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgExampleResponse.DiscardUnknown(m)
+func (m *MsgIncrementCounterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgIncrementCounterResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgExampleResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgIncrementCounterResponse proto.InternalMessageInfo
 
 // MsgUpdateParams is the Msg/UpdateParams request type.
 type MsgUpdateParams struct {
@@ -219,8 +210,8 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgExample)(nil), "cosmosregistry.example.v1.MsgExample")
-	proto.RegisterType((*MsgExampleResponse)(nil), "cosmosregistry.example.v1.MsgExampleResponse")
+	proto.RegisterType((*MsgIncrementCounter)(nil), "cosmosregistry.example.v1.MsgIncrementCounter")
+	proto.RegisterType((*MsgIncrementCounterResponse)(nil), "cosmosregistry.example.v1.MsgIncrementCounterResponse")
 	proto.RegisterType((*MsgUpdateParams)(nil), "cosmosregistry.example.v1.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "cosmosregistry.example.v1.MsgUpdateParamsResponse")
 }
@@ -230,7 +221,7 @@ func init() {
 }
 
 var fileDescriptor_e12a2f8fd7fd29c8 = []byte{
-	// 420 bytes of a gzipped FileDescriptorProto
+	// 418 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x4a, 0xce, 0x2f, 0xce,
 	0xcd, 0x2f, 0x2e, 0x4a, 0x4d, 0xcf, 0x2c, 0x2e, 0x29, 0xaa, 0xd4, 0x4f, 0xad, 0x48, 0xcc, 0x2d,
 	0xc8, 0x49, 0xd5, 0x2f, 0x33, 0xd4, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x92,
@@ -238,26 +229,26 @@ var fileDescriptor_e12a2f8fd7fd29c8 = []byte{
 	0x07, 0x69, 0xc9, 0x2d, 0x4e, 0x87, 0xe8, 0x91, 0x12, 0x49, 0xcf, 0x4f, 0xcf, 0x07, 0x33, 0xf5,
 	0x41, 0x2c, 0xa8, 0xa8, 0x60, 0x62, 0x6e, 0x66, 0x5e, 0xbe, 0x3e, 0x98, 0x84, 0x0a, 0xa9, 0xe3,
 	0x76, 0x00, 0xcc, 0x1e, 0x88, 0x42, 0xa8, 0x2b, 0xe2, 0x21, 0x86, 0x42, 0x38, 0x10, 0x29, 0xa5,
-	0x6c, 0x2e, 0x2e, 0xdf, 0xe2, 0x74, 0x57, 0x88, 0x72, 0x21, 0x31, 0x2e, 0xb6, 0xe2, 0xd4, 0xbc,
-	0x94, 0xd4, 0x22, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x28, 0x4f, 0x48, 0x88, 0x8b, 0x25,
-	0x25, 0xb1, 0x24, 0x51, 0x82, 0x09, 0x2c, 0x0a, 0x66, 0x5b, 0x19, 0x36, 0x3d, 0xdf, 0xa0, 0x05,
-	0x55, 0xd0, 0xf5, 0x7c, 0x83, 0x96, 0x22, 0x0e, 0xd7, 0x20, 0x8c, 0x57, 0x12, 0xe1, 0x12, 0x42,
-	0xf0, 0x82, 0x52, 0x8b, 0x0b, 0xf2, 0xf3, 0x8a, 0x53, 0x95, 0x4e, 0x31, 0x72, 0xf1, 0xfb, 0x16,
-	0xa7, 0x87, 0x16, 0xa4, 0x24, 0x96, 0xa4, 0x06, 0x24, 0x16, 0x25, 0xe6, 0x16, 0x0b, 0x99, 0x71,
-	0x71, 0x26, 0x96, 0x96, 0x64, 0xe4, 0x17, 0x65, 0x96, 0x54, 0x42, 0xdc, 0xe2, 0x24, 0x71, 0x69,
-	0x8b, 0xae, 0x08, 0xd4, 0xed, 0x8e, 0x29, 0x29, 0x45, 0xa9, 0xc5, 0xc5, 0xc1, 0x25, 0x45, 0x99,
-	0x79, 0xe9, 0x41, 0x08, 0xa5, 0x42, 0x2e, 0x5c, 0x6c, 0x05, 0x60, 0x13, 0xc0, 0x4e, 0xe5, 0x36,
-	0x52, 0xd4, 0xc3, 0x19, 0x01, 0x7a, 0x10, 0xab, 0x9c, 0x38, 0x4f, 0xdc, 0x93, 0x67, 0x58, 0xf1,
-	0x7c, 0x83, 0x16, 0x63, 0x10, 0x54, 0xaf, 0x95, 0x25, 0xc8, 0x6b, 0x08, 0x53, 0x41, 0xbe, 0x53,
-	0xc3, 0xed, 0x3b, 0x64, 0x87, 0x2b, 0x49, 0x72, 0x89, 0xa3, 0x09, 0xc1, 0xfc, 0x69, 0xf4, 0x98,
-	0x91, 0x8b, 0xd9, 0xb7, 0x38, 0x5d, 0x28, 0x95, 0x8b, 0xd7, 0xb9, 0x28, 0x35, 0xb1, 0x24, 0x15,
-	0x16, 0xea, 0xaa, 0x78, 0x1c, 0x89, 0x08, 0x2f, 0x29, 0x5d, 0xa2, 0x94, 0xc1, 0xac, 0x13, 0xca,
-	0xe3, 0xe2, 0x41, 0x09, 0x52, 0x2d, 0xfc, 0xda, 0x91, 0xd5, 0x4a, 0x19, 0x11, 0xaf, 0x16, 0x66,
-	0x9f, 0x14, 0x6b, 0x03, 0x28, 0x0c, 0x9d, 0xac, 0x4f, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e,
-	0xf1, 0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58,
-	0x8e, 0x21, 0x4a, 0x31, 0x3d, 0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39, 0x3f, 0x57, 0x1f, 0x7b,
-	0x68, 0x26, 0xb1, 0x81, 0x13, 0xa5, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x8a, 0xed, 0x76, 0x56,
-	0x5b, 0x03, 0x00, 0x00,
+	0x4c, 0x2e, 0x61, 0xdf, 0xe2, 0x74, 0xcf, 0xbc, 0xe4, 0xa2, 0xd4, 0xdc, 0xd4, 0xbc, 0x12, 0xe7,
+	0xfc, 0xd2, 0xbc, 0x92, 0xd4, 0x22, 0x21, 0x31, 0x2e, 0xb6, 0xe2, 0xd4, 0xbc, 0x94, 0xd4, 0x22,
+	0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x28, 0xcf, 0xca, 0xaa, 0xe9, 0xf9, 0x06, 0x2d, 0x28,
+	0xa7, 0xeb, 0xf9, 0x06, 0x2d, 0x2d, 0x1c, 0x4e, 0xc0, 0x62, 0xa6, 0x92, 0x2c, 0x97, 0x34, 0x16,
+	0xe1, 0xa0, 0xd4, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0xa5, 0x53, 0x8c, 0x5c, 0xfc, 0xbe, 0xc5,
+	0xe9, 0xa1, 0x05, 0x29, 0x89, 0x25, 0xa9, 0x01, 0x89, 0x45, 0x89, 0xb9, 0xc5, 0x42, 0x66, 0x5c,
+	0x9c, 0x89, 0xa5, 0x25, 0x19, 0xf9, 0x45, 0x99, 0x25, 0x95, 0x10, 0x97, 0x38, 0x49, 0x5c, 0xda,
+	0xa2, 0x2b, 0x02, 0xf5, 0x82, 0x63, 0x4a, 0x4a, 0x51, 0x6a, 0x71, 0x71, 0x70, 0x49, 0x51, 0x66,
+	0x5e, 0x7a, 0x10, 0x42, 0xa9, 0x90, 0x0b, 0x17, 0x5b, 0x01, 0xd8, 0x04, 0x09, 0x26, 0x05, 0x46,
+	0x0d, 0x6e, 0x23, 0x45, 0x3d, 0x9c, 0xf1, 0xa0, 0x07, 0xb1, 0xca, 0x89, 0xf3, 0xc4, 0x3d, 0x79,
+	0x86, 0x15, 0xcf, 0x37, 0x68, 0x31, 0x06, 0x41, 0xf5, 0x5a, 0x59, 0x82, 0x3c, 0x8b, 0x30, 0x15,
+	0xe4, 0x5f, 0x35, 0xdc, 0xfe, 0x45, 0x76, 0xb8, 0x92, 0x24, 0x97, 0x38, 0x9a, 0x10, 0xcc, 0x9f,
+	0x46, 0x3f, 0x18, 0xb9, 0x98, 0x7d, 0x8b, 0xd3, 0x85, 0xaa, 0xb8, 0x04, 0x30, 0x82, 0x5d, 0x0f,
+	0x8f, 0x3b, 0xb1, 0x84, 0x9d, 0x94, 0x19, 0x69, 0xea, 0x61, 0x6e, 0x10, 0xca, 0xe3, 0xe2, 0x41,
+	0x09, 0x67, 0x2d, 0xfc, 0xe6, 0x20, 0xab, 0x95, 0x32, 0x22, 0x5e, 0x2d, 0xcc, 0x3e, 0x29, 0xd6,
+	0x06, 0x50, 0xc0, 0x3a, 0x59, 0x9f, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47,
+	0x72, 0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94,
+	0x62, 0x7a, 0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0xf6, 0x20, 0x4e, 0x62,
+	0x03, 0x27, 0x58, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xd1, 0x9e, 0x02, 0xc8, 0x77, 0x03,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -272,8 +263,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	// CreateExample creates an example message.
-	CreateExample(ctx context.Context, in *MsgExample, opts ...grpc.CallOption) (*MsgExampleResponse, error)
+	// IncrementCounter increments the counter.
+	IncrementCounter(ctx context.Context, in *MsgIncrementCounter, opts ...grpc.CallOption) (*MsgIncrementCounterResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 }
@@ -286,9 +277,9 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) CreateExample(ctx context.Context, in *MsgExample, opts ...grpc.CallOption) (*MsgExampleResponse, error) {
-	out := new(MsgExampleResponse)
-	err := c.cc.Invoke(ctx, "/cosmosregistry.example.v1.Msg/CreateExample", in, out, opts...)
+func (c *msgClient) IncrementCounter(ctx context.Context, in *MsgIncrementCounter, opts ...grpc.CallOption) (*MsgIncrementCounterResponse, error) {
+	out := new(MsgIncrementCounterResponse)
+	err := c.cc.Invoke(ctx, "/cosmosregistry.example.v1.Msg/IncrementCounter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -306,8 +297,8 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	// CreateExample creates an example message.
-	CreateExample(context.Context, *MsgExample) (*MsgExampleResponse, error)
+	// IncrementCounter increments the counter.
+	IncrementCounter(context.Context, *MsgIncrementCounter) (*MsgIncrementCounterResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 }
@@ -316,8 +307,8 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) CreateExample(ctx context.Context, req *MsgExample) (*MsgExampleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateExample not implemented")
+func (*UnimplementedMsgServer) IncrementCounter(ctx context.Context, req *MsgIncrementCounter) (*MsgIncrementCounterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IncrementCounter not implemented")
 }
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
@@ -327,20 +318,20 @@ func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_CreateExample_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgExample)
+func _Msg_IncrementCounter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgIncrementCounter)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).CreateExample(ctx, in)
+		return srv.(MsgServer).IncrementCounter(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cosmosregistry.example.v1.Msg/CreateExample",
+		FullMethod: "/cosmosregistry.example.v1.Msg/IncrementCounter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).CreateExample(ctx, req.(*MsgExample))
+		return srv.(MsgServer).IncrementCounter(ctx, req.(*MsgIncrementCounter))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -368,8 +359,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateExample",
-			Handler:    _Msg_CreateExample_Handler,
+			MethodName: "IncrementCounter",
+			Handler:    _Msg_IncrementCounter_Handler,
 		},
 		{
 			MethodName: "UpdateParams",
@@ -380,7 +371,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	Metadata: "cosmosregistry/example/v1/tx.proto",
 }
 
-func (m *MsgExample) Marshal() (dAtA []byte, err error) {
+func (m *MsgIncrementCounter) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -390,23 +381,16 @@ func (m *MsgExample) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgExample) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgIncrementCounter) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgExample) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgIncrementCounter) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Data) > 0 {
-		i -= len(m.Data)
-		copy(dAtA[i:], m.Data)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Data)))
-		i--
-		dAtA[i] = 0x12
-	}
 	if len(m.Sender) > 0 {
 		i -= len(m.Sender)
 		copy(dAtA[i:], m.Sender)
@@ -417,7 +401,7 @@ func (m *MsgExample) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgExampleResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgIncrementCounterResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -427,12 +411,12 @@ func (m *MsgExampleResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgExampleResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgIncrementCounterResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgExampleResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgIncrementCounterResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -514,7 +498,7 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgExample) Size() (n int) {
+func (m *MsgIncrementCounter) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -524,14 +508,10 @@ func (m *MsgExample) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.Data)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
 	return n
 }
 
-func (m *MsgExampleResponse) Size() (n int) {
+func (m *MsgIncrementCounterResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -570,7 +550,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgExample) Unmarshal(dAtA []byte) error {
+func (m *MsgIncrementCounter) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -593,10 +573,10 @@ func (m *MsgExample) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgExample: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgIncrementCounter: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgExample: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgIncrementCounter: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -631,38 +611,6 @@ func (m *MsgExample) Unmarshal(dAtA []byte) error {
 			}
 			m.Sender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Data", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Data = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -684,7 +632,7 @@ func (m *MsgExample) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgExampleResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgIncrementCounterResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -707,10 +655,10 @@ func (m *MsgExampleResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgExampleResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgIncrementCounterResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgExampleResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgIncrementCounterResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

@@ -1,7 +1,9 @@
 package module
 
 import (
+	"cosmossdk.io/core/address"
 	"cosmossdk.io/core/appmodule"
+	"cosmossdk.io/core/store"
 	"cosmossdk.io/depinject"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -29,7 +31,10 @@ func init() {
 type ModuleInputs struct {
 	depinject.In
 
-	Cdc    codec.Codec
+	Cdc          codec.Codec
+	StoreService store.KVStoreService
+	AddressCodec address.Codec
+
 	Config *modulev1.Module
 }
 
@@ -37,7 +42,7 @@ type ModuleOutputs struct {
 	depinject.Out
 
 	Module appmodule.AppModule
-	Keeper *keeper.Keeper
+	Keeper keeper.Keeper
 }
 
 func ProvideModule(in ModuleInputs) ModuleOutputs {
@@ -47,7 +52,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		authority = authtypes.NewModuleAddressOrBech32Address(in.Config.Authority)
 	}
 
-	k := keeper.NewKeeper(authority.String())
+	k := keeper.NewKeeper(in.Cdc, in.AddressCodec, in.StoreService, authority.String())
 	m := NewAppModule(in.Cdc, k)
 
 	return ModuleOutputs{Keeper: k, Module: m}

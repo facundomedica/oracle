@@ -86,11 +86,11 @@ func (AppModuleBasic) RegisterInterfaces(registry codectypes.InterfaceRegistry) 
 type AppModule struct {
 	AppModuleBasic
 
-	keeper *keeper.Keeper
+	keeper keeper.Keeper
 }
 
 // NewAppModule creates a new AppModule object
-func NewAppModule(cdc codec.Codec, keeper *keeper.Keeper) AppModule {
+func NewAppModule(cdc codec.Codec, keeper keeper.Keeper) AppModule {
 	return AppModule{
 		AppModuleBasic: AppModuleBasic{cdc: cdc},
 		keeper:         keeper,
@@ -99,6 +99,18 @@ func NewAppModule(cdc codec.Codec, keeper *keeper.Keeper) AppModule {
 
 // ConsensusVersion implements AppModule/ConsensusVersion.
 func (AppModule) ConsensusVersion() uint64 { return ConsensusVersion }
+
+// RegisterServices registers a gRPC query service to respond to the module-specific gRPC queries.
+func (am AppModule) RegisterServices(cfg module.Configurator) {
+	example.RegisterMsgServer(cfg.MsgServer(), keeper.NewMsgServerImpl(am.keeper))
+	example.RegisterQueryServer(cfg.QueryServer(), keeper.NewQueryServerImpl(am.keeper))
+
+	// Register in place module state migration migrations
+	// m := keeper.NewMigrator(am.keeper)
+	// if err := cfg.RegisterMigration(example.ModuleName, 1, m.Migrate1to2); err != nil {
+	// 	panic(fmt.Sprintf("failed to migrate x/%s from version 1 to 2: %v", example.ModuleName, err))
+	// }
+}
 
 // InitGenesis performs genesis initialization for the example module.
 // It returns no validator updates.
