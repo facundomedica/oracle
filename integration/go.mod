@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	cosmossdk.io/collections v0.3.0 // indirect
+	cosmossdk.io/collections v0.3.1-0.20230724154654-21020740248b // indirect
 	cosmossdk.io/errors v1.0.0 // indirect
 	cosmossdk.io/math v1.0.1 // indirect
 	cosmossdk.io/store v1.0.0-alpha.1 // indirect
