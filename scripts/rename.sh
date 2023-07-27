@@ -32,7 +32,7 @@ rm -rf proto/cosmosregistry
 make proto-gen
 
 # credits
-echo "# This project was generated using https://github.com/cosmosregistry/example" > THANKS.md
+echo "# This Cosmos SDK module was generated using <https://github.com/cosmosregistry/example>" > THANKS.md
 
 # removes itself
 rm scripts/rename.sh
