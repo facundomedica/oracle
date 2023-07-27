@@ -13,6 +13,7 @@ REPO="${PARTS[-1]}"
 
 # remove all generated proto files
 find . -type f -name "*.pb.go" -delete
+find . -type f -name "*.pb.gw.go" -delete
 find . -type f -name "*.pulsar.go" -delete
 
 # rename module and imports
