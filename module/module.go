@@ -34,22 +34,25 @@ func NewAppModule(keeper keeper.Keeper) AppModule {
 }
 
 func NewAppModuleBasic(m AppModule) module.AppModuleBasic {
-	return module.CoreAppModuleBasicAdaptor(example.ModuleName, m)
+	return module.CoreAppModuleBasicAdaptor(m.Name(), m)
 }
 
-// RegisterLegacyAminoCodec registers the circuit module's types on the LegacyAmino codec.
+// Name returns the example module's name.
+func (AppModule) Name() string { return example.ModuleName }
+
+// RegisterLegacyAminoCodec registers the example module's types on the LegacyAmino codec.
 func (AppModule) RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	example.RegisterLegacyAminoCodec(cdc)
 }
 
-// RegisterGRPCGatewayRoutes registers the gRPC Gateway routes for the circuit module.
+// RegisterGRPCGatewayRoutes registers the gRPC Gateway routes for the example module.
 func (AppModule) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *gwruntime.ServeMux) {
 	if err := example.RegisterQueryHandlerClient(context.Background(), mux, example.NewQueryClient(clientCtx)); err != nil {
 		panic(err)
 	}
 }
 
-// RegisterInterfaces registers interfaces and implementations of the circuit module.
+// RegisterInterfaces registers interfaces and implementations of the example module.
 func (AppModule) RegisterInterfaces(registry codectypes.InterfaceRegistry) {
 	example.RegisterInterfaces(registry)
 }
