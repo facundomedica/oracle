@@ -1,29 +1,35 @@
 package keeper_test
 
 import (
-	"bytes"
-	"encoding/json"
 	"testing"
 
-	"cosmossdk.io/core/genesis"
 	"github.com/cosmosregistry/example"
 	"github.com/stretchr/testify/require"
 )
 
-func TestDefaultGenesis(t *testing.T) {
+func TestInitGenesis(t *testing.T) {
 	fixture := initFixture(t)
 
-	target := &genesis.RawJSONTarget{}
-	err := fixture.k.Schema.DefaultGenesis(target.Target())
+	data := &example.GenesisState{
+		Counters: []example.Counter{
+			{
+				Address: fixture.addrs[0].String(),
+				Count:   5,
+			},
+		},
+		Params: example.DefaultParams(),
+	}
+	err := fixture.k.InitGenesis(fixture.ctx, data)
 	require.NoError(t, err)
 
-	result, err := target.JSON()
-	require.NoError(t, err)
-	buf := &bytes.Buffer{}
-	err = json.Compact(buf, result)
+	params, err := fixture.k.Params.Get(fixture.ctx)
 	require.NoError(t, err)
 
-	require.Equal(t, `{"counter":[],"params":[]}`, buf.String())
+	require.Equal(t, example.DefaultParams(), params)
+
+	count, err := fixture.k.Counter.Get(fixture.ctx, fixture.addrs[0].String())
+	require.NoError(t, err)
+	require.Equal(t, uint64(5), count)
 }
 
 func TestExportGenesis(t *testing.T) {
@@ -34,15 +40,9 @@ func TestExportGenesis(t *testing.T) {
 	})
 	require.NoError(t, err)
 
-	target := &genesis.RawJSONTarget{}
-	err = fixture.k.Schema.ExportGenesis(fixture.ctx, target.Target())
+	out, err := fixture.k.ExportGenesis(fixture.ctx)
 	require.NoError(t, err)
 
-	result, err := target.JSON()
-	require.NoError(t, err)
-	buf := &bytes.Buffer{}
-	err = json.Compact(buf, result)
-	require.NoError(t, err)
-
-	require.Equal(t, `{"counter":[{"key":"cosmos15ky9du8a2wlstz6fpx3p4mqpjyrm5cgqjwl8sq","value":"1"}],"params":[]}`, buf.String())
+	require.Equal(t, example.DefaultParams(), out.Params)
+	require.Equal(t, uint64(1), out.Counters[0].Count)
 }
