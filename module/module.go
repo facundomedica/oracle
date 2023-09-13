@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	abci "github.com/cometbft/cometbft/abci/types"
+	"cosmossdk.io/core/appmodule"
 	gwruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -16,6 +16,12 @@ import (
 
 	"github.com/cosmosregistry/example"
 	"github.com/cosmosregistry/example/keeper"
+)
+
+var (
+	_ module.AppModuleBasic = AppModule{}
+	_ module.HasGenesis     = AppModule{}
+	_ appmodule.AppModule   = AppModule{}
 )
 
 // ConsensusVersion defines the current module consensus version.
@@ -90,15 +96,13 @@ func (AppModule) ValidateGenesis(cdc codec.JSONCodec, _ client.TxEncodingConfig,
 
 // InitGenesis performs genesis initialization for the example module.
 // It returns no validator updates.
-func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, data json.RawMessage) []abci.ValidatorUpdate {
+func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, data json.RawMessage) {
 	var genesisState example.GenesisState
 	cdc.MustUnmarshalJSON(data, &genesisState)
 
 	if err := am.keeper.InitGenesis(ctx, &genesisState); err != nil {
 		panic(fmt.Sprintf("failed to initialize %s genesis state: %v", example.ModuleName, err))
 	}
-
-	return nil
 }
 
 // ExportGenesis returns the exported genesis state as raw bytes for the circuit
