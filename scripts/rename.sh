@@ -18,10 +18,17 @@ find . -type f -name "*.pulsar.go" -delete
 
 # rename module and imports
 go mod edit -module github.com/$MODULE_NAME
-find . -not -path './.*' -type f -exec sed -i -e "s,cosmosregistry/example,$MODULE_NAME,g" {} \;
-find . -name '*.proto' -type f -exec sed -i -e "s,cosmosregistry.example,$(echo "$MODULE_NAME" | tr '/' '.'),g" {} \;
-find . -name 'protocgen.sh' -type f -exec sed -i -e "s,rm -rf github.com cosmosregistry,rm -rf github.com $USERNAME,g" {} \;
-find . -not -path './.*' -type f -exec sed -i -e "s,example,$REPO,g" {} \;
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    find . -not -path './.*' -type f -exec sed -i -e "s,cosmosregistry/example,$MODULE_NAME,g" {} \;
+    find . -name '*.proto' -type f -exec sed -i -e "s,cosmosregistry.example,$(echo "$MODULE_NAME" | tr '/' '.'),g" {} \;
+    find . -name 'protocgen.sh' -type f -exec sed -i -e "s,rm -rf github.com cosmosregistry,rm -rf github.com $USERNAME,g" {} \;
+    find . -not -path './.*' -type f -exec sed -i -e "s,example,$REPO,g" {} \;
+else
+    find . -not -path './.*' -type f -exec sed -i '' -e "s,cosmosregistry/example,$MODULE_NAME,g" {} \;
+    find . -name '*.proto' -type f -exec sed -i '' -e "s,cosmosregistry.example,$(echo "$MODULE_NAME" | tr '/' '.'),g" {} \;
+    find . -name 'protocgen.sh' -type f -exec sed -i '' -e "s,rm -rf github.com cosmosregistry,rm -rf github.com $USERNAME,g" {} \;
+    find . -not -path './.*' -type f -exec sed -i '' -e "s,example,$REPO,g" {} \;
+fi
 
 # rename directory
 mkdir -p proto/$MODULE_NAME
