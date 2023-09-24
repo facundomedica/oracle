@@ -2,9 +2,9 @@
 
 DOCKER := $(shell which docker)
 
-##################
-###   Build   ####
-##################
+#################
+###   Build   ###
+#################
 
 test:
 	@echo "--> Running tests"
@@ -16,11 +16,11 @@ test-integration:
 
 .PHONY: test test-integration
 
-###################
-###  Protobuf  ####
-###################
+##################
+###  Protobuf  ###
+##################
 
-protoVer=0.13.2
+protoVer=0.14.0
 protoImageName=ghcr.io/cosmos/proto-builder:$(protoVer)
 protoImage=$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
 
@@ -35,13 +35,13 @@ proto-format:
 	@$(protoImage) find ./ -name "*.proto" -exec clang-format -i {} \;
 
 proto-lint:
-	@$(protoImage) buf lint
+	@$(protoImage) buf lint proto/ --error-format=json
 
 .PHONY: proto-all proto-gen proto-format proto-lint
 
-##################
-###  Linting  ####
-##################
+#################
+###  Linting  ###
+#################
 
 golangci_lint_cmd=golangci-lint
 golangci_version=v1.51.2
