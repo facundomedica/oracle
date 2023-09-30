@@ -1,8 +1,8 @@
-package example
+package oracle
 
 import "cosmossdk.io/collections"
 
-const ModuleName = "example"
+const ModuleName = "oracle"
 
 var (
 	ParamsKey  = collections.NewPrefix(0)

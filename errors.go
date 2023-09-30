@@ -1,4 +1,4 @@
-package example
+package oracle
 
 import "cosmossdk.io/errors"
 

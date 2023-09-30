@@ -3,7 +3,7 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/cosmosregistry/example"
+	"github.com/facundomedica/oracle"
 	"github.com/stretchr/testify/require"
 )
 
@@ -11,23 +11,23 @@ func TestQueryParams(t *testing.T) {
 	f := initFixture(t)
 	require := require.New(t)
 
-	resp, err := f.queryServer.Params(f.ctx, &example.QueryParamsRequest{})
+	resp, err := f.queryServer.Params(f.ctx, &oracle.QueryParamsRequest{})
 	require.NoError(err)
-	require.Equal(example.Params{}, resp.Params)
+	require.Equal(oracle.Params{}, resp.Params)
 }
 
 func TestQueryCounter(t *testing.T) {
 	f := initFixture(t)
 	require := require.New(t)
 
-	resp, err := f.queryServer.Counter(f.ctx, &example.QueryCounterRequest{Address: f.addrs[0].String()})
+	resp, err := f.queryServer.Counter(f.ctx, &oracle.QueryCounterRequest{Address: f.addrs[0].String()})
 	require.NoError(err)
 	require.Equal(uint64(0), resp.Counter)
 
-	_, err = f.msgServer.IncrementCounter(f.ctx, &example.MsgIncrementCounter{Sender: f.addrs[0].String()})
+	_, err = f.msgServer.IncrementCounter(f.ctx, &oracle.MsgIncrementCounter{Sender: f.addrs[0].String()})
 	require.NoError(err)
 
-	resp, err = f.queryServer.Counter(f.ctx, &example.QueryCounterRequest{Address: f.addrs[0].String()})
+	resp, err = f.queryServer.Counter(f.ctx, &oracle.QueryCounterRequest{Address: f.addrs[0].String()})
 	require.NoError(err)
 	require.Equal(uint64(1), resp.Counter)
 }

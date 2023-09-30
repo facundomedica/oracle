@@ -1,4 +1,4 @@
-module github.com/cosmosregistry/example
+module github.com/facundomedica/oracle
 
 go 1.21
 

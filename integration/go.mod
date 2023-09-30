@@ -1,4 +1,4 @@
-module github.com/cosmosregistry/example/integration
+module github.com/facundomedica/oracle/integration
 
 go 1.21
 
@@ -10,7 +10,7 @@ require (
 	cosmossdk.io/depinject v1.0.0-alpha.4
 	cosmossdk.io/log v1.2.1
 	github.com/cosmos/cosmos-sdk v0.50.0-rc.1
-	github.com/cosmosregistry/example v1.0.0
+	github.com/facundomedica/oracle v1.0.0
 	github.com/stretchr/testify v1.8.4
 )
 
@@ -156,4 +156,4 @@ require (
 )
 
 // always test the latest module code.
-replace github.com/cosmosregistry/example => ../.
+replace github.com/facundomedica/oracle => ../.

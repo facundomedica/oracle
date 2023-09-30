@@ -9,13 +9,13 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/cosmosregistry/example"
+	"github.com/facundomedica/oracle"
 )
 
-var _ example.QueryServer = queryServer{}
+var _ oracle.QueryServer = queryServer{}
 
 // NewQueryServerImpl returns an implementation of the module QueryServer.
-func NewQueryServerImpl(k Keeper) example.QueryServer {
+func NewQueryServerImpl(k Keeper) oracle.QueryServer {
 	return queryServer{k}
 }
 
@@ -24,7 +24,7 @@ type queryServer struct {
 }
 
 // Counter defines the handler for the Query/Counter RPC method.
-func (qs queryServer) Counter(ctx context.Context, req *example.QueryCounterRequest) (*example.QueryCounterResponse, error) {
+func (qs queryServer) Counter(ctx context.Context, req *oracle.QueryCounterRequest) (*oracle.QueryCounterResponse, error) {
 	if _, err := qs.k.addressCodec.StringToBytes(req.Address); err != nil {
 		return nil, fmt.Errorf("invalid sender address: %w", err)
 	}
@@ -32,25 +32,25 @@ func (qs queryServer) Counter(ctx context.Context, req *example.QueryCounterRequ
 	counter, err := qs.k.Counter.Get(ctx, req.Address)
 	if err != nil {
 		if errors.Is(err, collections.ErrNotFound) {
-			return &example.QueryCounterResponse{Counter: 0}, nil
+			return &oracle.QueryCounterResponse{Counter: 0}, nil
 		}
 
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	return &example.QueryCounterResponse{Counter: counter}, nil
+	return &oracle.QueryCounterResponse{Counter: counter}, nil
 }
 
 // Params defines the handler for the Query/Params RPC method.
-func (qs queryServer) Params(ctx context.Context, req *example.QueryParamsRequest) (*example.QueryParamsResponse, error) {
+func (qs queryServer) Params(ctx context.Context, req *oracle.QueryParamsRequest) (*oracle.QueryParamsResponse, error) {
 	params, err := qs.k.Params.Get(ctx)
 	if err != nil {
 		if errors.Is(err, collections.ErrNotFound) {
-			return &example.QueryParamsResponse{Params: example.Params{}}, nil
+			return &oracle.QueryParamsResponse{Params: oracle.Params{}}, nil
 		}
 
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	return &example.QueryParamsResponse{Params: params}, nil
+	return &oracle.QueryParamsResponse{Params: params}, nil
 }

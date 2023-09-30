@@ -13,7 +13,7 @@ import (
 	_ "github.com/cosmos/cosmos-sdk/x/genutil"
 	_ "github.com/cosmos/cosmos-sdk/x/mint"
 	_ "github.com/cosmos/cosmos-sdk/x/staking"
-	_ "github.com/cosmosregistry/example/module"
+	_ "github.com/facundomedica/oracle/module"
 
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
 	"cosmossdk.io/core/appconfig"
@@ -22,17 +22,17 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil/configurator"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 
-	"github.com/cosmosregistry/example"
-	examplemodulev1 "github.com/cosmosregistry/example/api/module/v1"
-	"github.com/cosmosregistry/example/keeper"
+	"github.com/facundomedica/oracle"
+	oraclemodulev1 "github.com/facundomedica/oracle/api/module/v1"
+	"github.com/facundomedica/oracle/keeper"
 )
 
-// ExampleModule is a configurator.ModuleOption that add the example module to the app config.
+// ExampleModule is a configurator.ModuleOption that add the oracle module to the app config.
 var ExampleModule = func() configurator.ModuleOption {
 	return func(config *configurator.Config) {
-		config.ModuleConfigs[example.ModuleName] = &appv1alpha1.ModuleConfig{
-			Name:   example.ModuleName,
-			Config: appconfig.WrapAny(&examplemodulev1.Module{}),
+		config.ModuleConfigs[oracle.ModuleName] = &appv1alpha1.ModuleConfig{
+			Name:   oracle.ModuleName,
+			Config: appconfig.WrapAny(&oraclemodulev1.Module{}),
 		}
 	}
 }
@@ -58,7 +58,7 @@ func TestIntegration(t *testing.T) {
 				"mint",
 				"genutil",
 				"consensus",
-				example.ModuleName,
+				oracle.ModuleName,
 			),
 		),
 		depinject.Supply(logger))

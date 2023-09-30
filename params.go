@@ -1,4 +1,4 @@
-package example
+package oracle
 
 // DefaultParams returns default module parameters.
 func DefaultParams() Params {

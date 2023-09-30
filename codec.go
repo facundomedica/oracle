@@ -1,4 +1,4 @@
-package example
+package oracle
 
 import (
 	types "github.com/cosmos/cosmos-sdk/codec/types"
