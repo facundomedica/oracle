@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Query_Counter_FullMethodName = "/facundomedica.oracle.v1.Query/Counter"
 	Query_Params_FullMethodName  = "/facundomedica.oracle.v1.Query/Params"
+	Query_Prices_FullMethodName  = "/facundomedica.oracle.v1.Query/Prices"
 )
 
 // QueryClient is the client API for Query service.
@@ -31,6 +32,7 @@ type QueryClient interface {
 	Counter(ctx context.Context, in *QueryCounterRequest, opts ...grpc.CallOption) (*QueryCounterResponse, error)
 	// Params returns the module parameters.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	Prices(ctx context.Context, in *QueryPricesRequest, opts ...grpc.CallOption) (*QueryPricesResponse, error)
 }
 
 type queryClient struct {
@@ -59,6 +61,15 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) Prices(ctx context.Context, in *QueryPricesRequest, opts ...grpc.CallOption) (*QueryPricesResponse, error) {
+	out := new(QueryPricesResponse)
+	err := c.cc.Invoke(ctx, Query_Prices_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -67,6 +78,7 @@ type QueryServer interface {
 	Counter(context.Context, *QueryCounterRequest) (*QueryCounterResponse, error)
 	// Params returns the module parameters.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	Prices(context.Context, *QueryPricesRequest) (*QueryPricesResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -79,6 +91,9 @@ func (UnimplementedQueryServer) Counter(context.Context, *QueryCounterRequest) (
 }
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (UnimplementedQueryServer) Prices(context.Context, *QueryPricesRequest) (*QueryPricesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Prices not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -129,6 +144,24 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Prices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryPricesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Prices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Prices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Prices(ctx, req.(*QueryPricesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +176,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "Prices",
+			Handler:    _Query_Prices_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

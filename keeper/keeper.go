@@ -81,6 +81,22 @@ func (k Keeper) SetOraclePrices(ctx context.Context, prices map[string]math.Lega
 	return nil
 }
 
+func (k Keeper) GetOraclePrices(ctx context.Context) (map[string]math.LegacyDec, error) {
+	prices := make(map[string]math.LegacyDec)
+	err := k.Prices.Walk(ctx, nil, func(key string, value []byte) (bool, error) {
+		var q math.LegacyDec
+		if err := q.Unmarshal(value); err != nil {
+			return true, err
+		}
+		prices[key] = q
+		return false, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return prices, nil
+}
+
 type (
 	CurrencyPair struct {
 		Base  string

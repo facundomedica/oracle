@@ -22,6 +22,21 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/facundomedica/oracle/v1/params";
   }
+
+  rpc Prices(QueryPricesRequest) returns (QueryPricesResponse) {
+    option (google.api.http).get = "/facundomedica/oracle/v1/prices";
+  }
+}
+
+message QueryPricesRequest {}
+
+message QueryPricesResponse {
+  repeated Price prices = 1;
+}
+
+message Price {
+  string symbol = 1;
+  string price = 2;
 }
 
 // QueryCounterRequest is the request type for the Query/Counter RPC

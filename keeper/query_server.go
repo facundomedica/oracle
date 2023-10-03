@@ -54,3 +54,21 @@ func (qs queryServer) Params(ctx context.Context, req *oracle.QueryParamsRequest
 
 	return &oracle.QueryParamsResponse{Params: params}, nil
 }
+
+func (qs queryServer) Prices(ctx context.Context, req *oracle.QueryPricesRequest) (*oracle.QueryPricesResponse, error) {
+	var prices []*oracle.Price
+
+	p, err := qs.k.GetOraclePrices(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	for symbol, price := range p {
+		prices = append(prices, &oracle.Price{
+			Symbol: symbol,
+			Price:  price.String(),
+		})
+	}
+
+	return &oracle.QueryPricesResponse{Prices: prices}, nil
+}
