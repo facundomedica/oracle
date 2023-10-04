@@ -1,6 +1,7 @@
-# `{Module Name}`
+# `Oracle`
 
-Overview of the module.
+An example oracle module that utilizes vote extensions.
+Chain's repo: https://github.com/facundomedica/oraclis
 
 ## Concepts
 
