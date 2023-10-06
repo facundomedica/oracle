@@ -1,7 +1,10 @@
 # `Oracle`
 
 An example oracle module that utilizes vote extensions.
+
 Chain's repo: https://github.com/facundomedica/oraclis
+
+Slideshow: https://docs.google.com/presentation/d/1k_dRDvb6L_Puv0FSSQNCFXgNFbJO0EecqjYBo-wp41U/
 
 ## Concepts
 
